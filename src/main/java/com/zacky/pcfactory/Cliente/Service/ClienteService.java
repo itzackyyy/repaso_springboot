@@ -1,6 +1,8 @@
-package com.zacky.pcfactory.Cliente;
+package com.zacky.pcfactory.Cliente.Service;
 
 
+import com.zacky.pcfactory.Cliente.Model.ClienteModel;
+import com.zacky.pcfactory.Cliente.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

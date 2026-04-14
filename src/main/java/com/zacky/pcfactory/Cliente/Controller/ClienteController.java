@@ -1,6 +1,8 @@
-package com.zacky.pcfactory.Cliente;
+package com.zacky.pcfactory.Cliente.Controller;
 
 
+import com.zacky.pcfactory.Cliente.Model.ClienteModel;
+import com.zacky.pcfactory.Cliente.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

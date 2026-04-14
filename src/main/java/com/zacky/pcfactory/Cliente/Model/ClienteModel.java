@@ -1,4 +1,4 @@
-package com.zacky.pcfactory.Cliente;
+package com.zacky.pcfactory.Cliente.Model;
 
 
 import jakarta.persistence.*;
