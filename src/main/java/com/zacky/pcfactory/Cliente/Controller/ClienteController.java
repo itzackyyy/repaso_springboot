@@ -2,6 +2,7 @@ package com.zacky.pcfactory.Cliente.Controller;
 
 
 import com.zacky.pcfactory.Cliente.Model.ClienteModel;
+import com.zacky.pcfactory.Cliente.Repository.ClienteRepository;
 import com.zacky.pcfactory.Cliente.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,15 +10,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@RestController()
+@RestController
 @RequestMapping("/api/v1")
 
 public class ClienteController {
 
+    private final ClienteRepository clienteRepository;
+
     @Autowired //instanciamos una clase y la traemos aqui :D
     private ClienteService clienteService;
+
+    ClienteController(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
     @GetMapping("/cliente")
     public List<ClienteModel> listarClientes(){
@@ -41,7 +47,15 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Cliente con el id: "+id+ "no encontrado, 404");
     }
-
     }
+
+    @PostMapping("/cliente")
+    public String agregarCliente(@RequestBody ClienteModel clienteModel){
+        clienteService.guardarCliente(clienteModel);        
+        return HttpStatus.CREATED.toString();
+    }
+    
+
+
 
 }
