@@ -1,29 +1,15 @@
 package com.zacky.pcfactory.Cliente.Controller;
 
 
-<<<<<<< HEAD
 import java.util.List;
 
-=======
-import com.zacky.pcfactory.Cliente.Model.ClienteModel;
-import com.zacky.pcfactory.Cliente.Repository.ClienteRepository;
-import com.zacky.pcfactory.Cliente.Service.ClienteService;
->>>>>>> origin/master
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-<<<<<<< HEAD
+import org.springframework.web.bind.annotation.*;
 import com.zacky.pcfactory.Cliente.Model.ClienteModel;
+import com.zacky.pcfactory.Cliente.Repository.ClienteRepository;
 import com.zacky.pcfactory.Cliente.Service.ClienteService;
-=======
-import java.util.List;
->>>>>>> origin/master
 
 @RestController
 @RequestMapping("/api/v1")
@@ -32,12 +18,15 @@ public class ClienteController {
 
     private final ClienteRepository clienteRepository;
 
+    ClienteController(ClienteRepository clienteRepository) {
+        
+        this.clienteRepository = clienteRepository;
+    }
+
+
     @Autowired //instanciamos una clase y la traemos aqui :D
     private ClienteService clienteService;
 
-    ClienteController(ClienteRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
-    }
 
     @GetMapping("/cliente")
     public List<ClienteModel> listarClientes(){
@@ -67,6 +56,24 @@ public class ClienteController {
     public String agregarCliente(@RequestBody ClienteModel clienteModel){
         clienteService.guardarCliente(clienteModel);        
         return HttpStatus.CREATED.toString();
+    }
+
+    @PutMapping("cliente/{id}")
+    public ResponseEntity<ClienteModel> actualizarCliente(@PathVariable("id") Long id, @RequestBody ClienteModel cliModel){
+        return clienteRepository.findById(id)
+        .map(clienteRegistrado ->
+
+            {
+            clienteRegistrado.setNombreCliente(cliModel.getNombreCliente());
+            clienteRegistrado.setPriApeCliente(cliModel.getPriApeCliente());
+            clienteRegistrado.setSecApeCliente(cliModel.getSecApeCliente());
+
+
+            ClienteModel clienteActualizado = clienteRepository.save(clienteRegistrado);
+
+            return ResponseEntity.ok(clienteActualizado);
+            })
+            .orElseGet(()-> ResponseEntity.notFound().build());
     }
     
 
