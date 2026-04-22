@@ -52,11 +52,6 @@ public class ClienteController {
     }
     }
 
-
-
-
-
-
     @PostMapping("/cliente")
     public ResponseEntity<String> agregarCliente(@RequestBody ClienteModel clienteModel){
         clienteService.guardarCliente(clienteModel);        

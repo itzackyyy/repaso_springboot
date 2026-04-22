@@ -31,5 +31,8 @@ public class ClienteModel {
     private String secApeCliente; //nullable por defecto
 
 
+    
+
+
 
 }
