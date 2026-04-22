@@ -52,13 +52,18 @@ public class ClienteController {
     }
     }
 
+
+
+
+
+
     @PostMapping("/cliente")
-    public String agregarCliente(@RequestBody ClienteModel clienteModel){
+    public ResponseEntity<String> agregarCliente(@RequestBody ClienteModel clienteModel){
         clienteService.guardarCliente(clienteModel);        
-        return HttpStatus.CREATED.toString();
+        return new ResponseEntity<String>("Cliente creado\n"+"Id Cliente: "+clienteModel.getIdCliente(),HttpStatus.CREATED);
     }
 
-    @PutMapping("cliente/{id}")
+    @PutMapping("cliente/{id}") //anotación para el metodo PUT (especificamente en este caso para modificar un cliente.)
     public ResponseEntity<ClienteModel> actualizarCliente(@PathVariable("id") Long id, @RequestBody ClienteModel cliModel){
         return clienteRepository.findById(id)
         .map(clienteRegistrado ->
